@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Signature Scheme</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function checkTampering() {
+            const originalMessage = "{{ session.get('signed_message', '') }}";
+            const currentMessage = document.getElementById("message").value;
+            const tamperStatus = document.getElementById("tamper-status");
+            if (originalMessage && currentMessage !== originalMessage) {
+                tamperStatus.textContent = "⚠️ The message has been TAMPERED!";
+                tamperStatus.style.color = "red";
+            } else {
+                tamperStatus.textContent = "";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1><b><u>Digital Signature Scheme</u></b></h1>
+
+      
+
+        <h2>Registered Users</h2>
+        <ul>
+            {% for user in users %}
+                <li>
+                    {{ user.username }}
+                    <a href="{{ url_for('generate_certificate_route', username=user.username) }}">Generate Certificate</a>
+                    <a href="{{ url_for('view_certificate_route', username=user.username) }}">View Certificate</a>
+                    <a href="{{ url_for('verify_certificate_route', username=user.username) }}">Verify Certificate</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Register New User</h2>
+        <form method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+            <button type="submit" name="action" value="register">Register User</button>
+        </form>
+
+        <h2>Send Message</h2>
+        <form method="POST">
+            <label for="sender">Sender:</label><br>
+           <!-- <select id="sender" name="sender" required>
+                {% for user in users %}
+                    <option value="{{ user.username }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>-->
+            <select id="sender" name="sender" required>
+                {% for user in users %}
+                    <option value="{{ user.username }}" {% if user.username == selected_sender %}selected{% endif %}>
+                        {{ user.username }}
+                    </option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label for="recipient">Recipient:</label><br>
+            <!--<select id="recipient" name="recipient" required>
+                {% for user in users %}
+                    <option value="{{ user.username }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>-->
+            <select id="recipient" name="recipient" required>
+                {% for user in users %}
+                    <option value="{{ user.username }}" {% if user.username == selected_recipient %}selected{% endif %}>
+                        {{ user.username }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <br><br>
+
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" placeholder="Type your message here..." oninput="checkTampering()">{{ session.get('signed_message', '') }}</textarea><br><br>
+
+            <button type="submit" name="action" value="send">Send Message</button>
+            <button type="submit" name="action" value="verify">Verify Signature</button>
+        </form>
+
+        <h2>Output Alert</h2>
+        <p id="tamper-status"></p>
+
+          <!-- Flash Messages -->
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <ul class="flash-messages">
+                  {% for message in messages %}
+                      <li>{{ message }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+      {% endwith %}
+
+        <h2>Exit</h2>
+        <form method="POST">
+            <button type="submit" name="action" value="exit">Exit and Clear Session</button>
+        </form>
+    </div>
+</body>
+</html>
