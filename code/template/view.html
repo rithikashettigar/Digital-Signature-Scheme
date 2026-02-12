@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate for {{ username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1><b><u>Certificate for {{ username }}</u></b></h1>
+        <p><strong>Username:</strong> {{ certificate.data.username }}</p>
+        <p><strong>Public Key:</strong> {{ certificate.data.public_key }}</p>
+        <p><strong>Issuer:</strong> {{ certificate.data.issuer }}</p>
+        <p><strong>Valid From:</strong> {{ certificate.data.valid_from }}</p>
+        <p><strong>Valid To:</strong> {{ certificate.data.valid_to }}</p>
+        <p><strong>Signature:</strong> {{ certificate.signature }}</p>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>
