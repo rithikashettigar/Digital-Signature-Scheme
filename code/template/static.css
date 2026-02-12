@@ -1,0 +1,97 @@
+/* Full page background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #D4a1fe;
+    background-image: url('pup.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Centered content container */
+.container {
+    background-color: rgba(255, 255, 255, 0.85);
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    position: relative;
+}
+
+/* Headings */
+h1, h2 {
+    text-align: center;
+    color: #2c2c2c;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-shadow: 1px 1px #fff;
+}
+
+/* Input fields, dropdowns, textarea */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    margin-top: 8px;
+    margin-right: 10px;
+    border: none;
+    background-color: #191E28;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Flash messages */
+.flash-messages {
+    list-style: none;
+    padding: 10px 15px;
+    margin: 10px 0 25px;
+    background-color: #d9edf7;
+    border-left: 5px solid #31708f;
+    color: #31708f;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Certificate actions list */
+ul li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+    button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
